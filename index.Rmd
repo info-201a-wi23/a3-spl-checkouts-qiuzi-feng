@@ -5,27 +5,28 @@ output: html_document
 
 ### Introduction
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+The dataset that I chose to use is "Dataset with all items checked out in 2022-2023" from Seattle Public Library. This dataset is refreshed monthly and includes all physical and digital items checked out in 2022-2023. There are a total of 13 variables (columns) and a total of 2,757,014 observations (rows) in the dataset. The information in the dataset includes but is not limited to book types (physical or digital or audio), book title, author, publisher, publication year, check-out year and month, total check-out times, and subjects. The trends and books I choose to analyze will be related to Harry Potter since I'm a big fan of the Harry Potter series and very much into fantasy novels. I'm also always interested in the popularity of the Harry Potter series in recent years since it was published long ago. Moreover, there are also recent negative comments about J.K. Rowling, and the newly released game Hogwarts Legacy (released on 2/10) might contribute to its changing popularity. I want to learn and research more if they relate to any changes in its book series' popularity.
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+I have created 5 questions to gather the 5 values. All the questions and preparation works are done in the file "summary.R". From the collected values, I got to know the Harry Potter-related books that are checked out the most by people from all time is "Harry Potter and the Chamber of Secrets: Harry Potter Series, Book 2 (unabridged)", which is checked out 196 times (Value 1). I also learned the month with the most Harry Potter book checkouts in 2022-2023, which is March 2022 (Value 2). I also found the month with the most checkout for all Harry Potter-related ebooks is March 2022 (Value 3). It is the same as the previous value, which pretty surprised me. I have also calculated the average number of checkouts for Harry Potter-related books, which is 10.30457 (Value 5). Lastly, I have calculated how many print book checkouts changed over time (Value 4). This data shows that people check out more or fewer Harry Potter books, which could demonstrate their interest in the topic. With these data, I could answer my questions like what is the impact of the Covid pandemic on the checkout of different types of books related to Harry Potter and how people's interest in Harry Potter changed over time due to outside circumstances.
 
-These will likely be calculated using your DPLYR skills, answering questions such as:
-
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
 
 ### The Dataset
 
-- Who collected/published the data?  
+- Who collected/published the data?
+
+The data is collected and published by the Seattle Public Library. However David Christensen, the data analysts who worked at Seattle Public Library before helped the data collection process.
+
 - What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
+
+The parameters of the data included book types (physical or digital or audio), check out type, book ISBN, book title, author, publisher, publication year, check-out year and month, total check-out times, and subjects/categories.
+
 - How was the data collected or generated?  
-- Why was the data collected?  
+
+
+
+- Why was the data collected?
 - What, if any, ethical questions do you need to consider when working with this data?  
 - What are possible limitations or problems with this data?   (at least 200 words)
 
