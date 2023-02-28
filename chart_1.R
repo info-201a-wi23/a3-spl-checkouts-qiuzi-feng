@@ -24,8 +24,9 @@ material_types_checkout <- sum_checkout_monthly %>%
   select("UsageClass", "all_checkouts", "date")
 
 # building the chart
-ggplot(data = material_types_checkout) +
-  geom_point(mapping = aes(x = date, y = all_checkouts, color = UsageClass)) +
+ggplot(material_types_checkout, aes(x = date, y = all_checkouts, color = UsageClass)) +
+  geom_point() +
+  geom_line() +
   scale_y_continuous(breaks = seq(0, 1200, 100)) +
   labs(title = "Digital vs Physical Harry Potter Books Checkouts Overtime",
        x = "Month of the Year",
