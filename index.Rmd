@@ -11,22 +11,17 @@ The dataset that I chose to use is "Dataset with all items checked out in 2022-2
 
 I have created 5 questions to gather the 5 values. All the questions and preparation works are done in the file "summary.R". From the collected values, I got to know the Harry Potter-related books that are checked out the most by people from all time is "Harry Potter and the Chamber of Secrets: Harry Potter Series, Book 2 (unabridged)", which is checked out 196 times (Value 1). I also learned the month with the most Harry Potter book checkouts in 2022-2023, which is March 2022 (Value 2). I also found the month with the most checkout for all Harry Potter-related ebooks is March 2022 (Value 3). It is the same as the previous value, which pretty surprised me. I have also calculated the average number of checkouts for Harry Potter-related books, which is 10.30457 (Value 5). Lastly, I have calculated how many print book checkouts changed over time (Value 4). This data shows that people check out more or fewer Harry Potter books, which could demonstrate their interest in the topic. With these data, I could answer my questions like what is the impact of the Covid pandemic on the checkout of different types of books related to Harry Potter and how people's interest in Harry Potter changed over time due to outside circumstances.
 
-
 ### The Dataset
-
-- Who collected/published the data?
 
 The data is collected and published by the Seattle Public Library. However, David Christensen, the data analyst who worked at Seattle Public Library before, helped with the data collection process.
 
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-
 The data parameters included book types (physical or digital or audio), check-out type, book ISBN, book title, author, publisher, publication year, check-out year and month, total check-out times, and subjects/categories.
 
-- How was the data collected or generated?
-- Why was the data collected?
-- What, if any, ethical questions do you need to consider when working with this data?
-- What are possible limitations or problems with this data?   (at least 200 words)
+The data was collected by a data analyst who worked at Seattle Public Library. Employees organized and recorded data from multiple current and historical sources, including but not limited to Overdrive, hoopla, Freegal, RBDigital, the Legrady artwork data archives, and Horizon ILS.
 
+The data was collected aiming to give the public open access to the record of the Library checkouts by items. The government wished to increase transparency, accountability, and comparability to the citizens for the purpose of increasing the quality of life for Seattle residents.
+
+An ethical question I need to consider when working with this data is the resident who has access to Seattle Library's privacy. Since the dataset is open to all, there is a possibility that anyone has a chance to know what types of books or books individuals are borrowing. This might lead to individual privacy problems if it needs to be appropriately protected.
 
 ### First Trends Over Time Chart
 
@@ -72,22 +67,81 @@ ggplot(book_types_checkout, aes(x = date, y = all_checkouts, color = UsageClass)
 
 ### Second Trends Over Time Chart
 
-The second chart that I'm including is the "Harry Potter Books Checkout Summary Overtime Organized by Book Material Types". The x-axis is the months in 2022 and 2023 and the y-axis is the number of checkouts. There total two 8 materials for the book: audiobook, physical book, ebook, music, regprint, sound disc, sound rec, and video disc.
+The second chart I'm including is the "Harry Potter Books Checkout Summary Overtime Organized by Book Material Types." The x-axis is the months in 2022 and 2023, and the y-axis is the number of checkouts. There is a total two 8 materials for the book: audiobook, physical book, ebook, music, regprint, sound disc, soundrec, and video disc. I want to include these data trends because they can help us identify people's reading behavior on Harry Potter-related materials. This will also help us see the Harry Potter series' popularity in different formats over time. From analyzing the data from the chart, we learned that audiobook is the most popular way for people to borrow Harry Potter-related materials, while sound rec and music are the lowest. We can also analyze the user portrait from the checkout data from the different book material types. For example, the audiobook might be the young and middle age people since they will probably have more access to technology and prefer listening to the book. At the same time, audio discs and sound discs might be scholars who are studying the topic, which requires a more detailed view of the topic.
 
-``````{r, echo = FALSE, code = readLines("chart_2.R")}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Load libraries
+library("tidyr")
+library("dplyr")
+library("stringr")
+library("ggplot2")
+library("readr")
+library("scales")
+library("RColorBrewer")
+
+# Prepare the sub-dataframe for building the chart
+spl_df <- read.csv("~/Desktop/2022-2023-All-Checkouts-SPL-Data.csv", stringsAsFactors = FALSE)
+
+harry_potter <- spl_df %>%
+  filter(str_detect(Title, "Harry Potter"))
+
+harry_potter <- harry_potter %>% mutate(date = paste0(CheckoutYear, "-", CheckoutMonth,  "-01" ))
+harry_potter$date <- as.Date(harry_potter$date, format = "%Y-%m-%d")
+
+sum_materialtype_checkout_monthly <- harry_potter %>%
+  group_by(date, MaterialType) %>% 
+  summarize(all_checkouts = sum(Checkouts))
+
+material_types_checkout <- sum_materialtype_checkout_monthly %>%
+  select("MaterialType", "all_checkouts", "date")
+
+# building the chart
+ggplot(material_types_checkout, aes(x = date, y = all_checkouts, color = MaterialType)) +
+  geom_point() +
+  geom_line() +
+  scale_y_continuous(breaks = seq(0, 1200, 100)) +
+  labs(title = "Harry Potter Books Checkout Summary Overtime Organized by Book Material Types",
+       x = "Month of the Year",
+       y = "Number of Checkouts",
+       color = "Book Material Types"
+  )
 ```
 
 ### Your Choice
 
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
+The customized chart I built represents the monthly checkout difference for all the Harry Potter-related books. I include this because by analyzing and visualizing the checkout difference in each month, we will be able to see the change of popularity on the topics throughout time. Researchers could combine this data with their social-economical research on Harry Potter (e.g. the author's comment on Twitter, newly released Harry Potter 3d games, etc.) to see the relationship between the social effects and the topic's popularity. We could analyze from the visualization that in February 2022, April 2022, and September 2022, these were the time the popularity of Harry Potter topics decreased; the other time, the topic had pretty stable popularity as much stayed the same on the intellectual materials checkouts.
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Load libraries
+library("tidyr")
+library("dplyr")
+library("stringr")
+library("ggplot2")
+library("readr")
+library("scales")
+library("RColorBrewer")
 
-Here's an example of how to run an R script inside an RMarkdown file:
+# Prepare the sub-dataframe for building the chart
+spl_df <- read.csv("~/Desktop/2022-2023-All-Checkouts-SPL-Data.csv", stringsAsFactors = FALSE)
 
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+harry_potter <- spl_df %>%
+  filter(str_detect(Title, "Harry Potter"))
+
+harry_potter <- harry_potter %>% mutate(date = paste0(CheckoutYear, "-", CheckoutMonth,  "-01" ))
+harry_potter$date <- as.Date(harry_potter$date, format = "%Y-%m-%d")
+
+checkout_difference <- harry_potter %>%
+  group_by(date) %>% 
+  summarize(sum_checkouts = sum(Checkouts)) %>% 
+  mutate(new_checkouts = sum_checkouts - lag(sum_checkouts)) %>% 
+  select("date", "new_checkouts")
+
+
+# building the chart
+ggplot(checkout_difference) +
+  geom_col(mapping = aes(x = date, y = new_checkouts),
+           position = "dodge") +
+  scale_x_date(date_breaks = "months" , date_labels = "%b-%y") +
+  labs(title ="Harry Potter-Related Books Monthly Checkout Difference" , x = "Month of the Year",
+       y = "Checkouts Difference From the Previous Month")
 ```
-
-
