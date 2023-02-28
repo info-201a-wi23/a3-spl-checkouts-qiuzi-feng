@@ -27,7 +27,7 @@ material_types_checkout <- sum_checkout_monthly %>%
 ggplot(data = material_types_checkout) +
   geom_point(mapping = aes(x = date, y = all_checkouts, color = UsageClass)) +
   scale_y_continuous(breaks = seq(0, 1200, 100)) +
-  labs(title = "Different Types of Harry Potter Books Checkouts Overtime",
+  labs(title = "Digital vs Physical Harry Potter Books Checkouts Overtime",
        x = "Month of the Year",
        y = "Number of Checkouts",
        color = "Book Types"
