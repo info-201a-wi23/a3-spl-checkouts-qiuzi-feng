@@ -30,7 +30,7 @@ The data parameters included book types (physical or digital or audio), check-ou
 
 ### First Trends Over Time Chart
 
-The first chart I included is "Different Types of Harry Potter Books Checkouts Overtime". There total two types of books - "Digital" and "Physical". I want to include this chart because I want to know if any changes caused by the pandemic resulted in more digital book checkouts than physical book checkouts. The chart proves this guess I analyzed as the digital number of checkouts has slowly decreased, and the physical checkouts gradually increased as the time approaches 2023 (people's lives are getting back to normal in 2023, unaffected by the pandemic). However, digital book checkouts are still much higher than physical book checkouts. This phenomenon might represent the advancement of technology in the current era and the ease for people to read books online.
+The first chart I included is "Different Types of Harry Potter Books Checkouts Overtime". The x-axis is the months in 2022 and 2023 and the y-axis is the number of checkouts. There total two types of books - "Digital" and "Physical". I want to include this chart because I want to know if any changes caused by the pandemic resulted in more digital book checkouts than physical book checkouts. The chart proves this guess I analyzed as the digital number of checkouts has slowly decreased, and the physical checkouts gradually increased as the time approaches 2023 (people's lives are getting back to normal in 2023, unaffected by the pandemic). However, digital book checkouts are still much higher than physical book checkouts. This phenomenon might represent the advancement of technology in the current era and the ease for people to read books online.
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 # Load libraries
@@ -55,12 +55,13 @@ sum_checkout_monthly <- harry_potter %>%
   group_by(date, UsageClass) %>% 
   summarize(all_checkouts = sum(Checkouts))
 
-material_types_checkout <- sum_checkout_monthly %>%
+book_types_checkout <- sum_checkout_monthly %>%
   select("UsageClass", "all_checkouts", "date")
 
 # building the chart
-ggplot(data = material_types_checkout) +
-  geom_point(mapping = aes(x = date, y = all_checkouts, color = UsageClass)) +
+ggplot(book_types_checkout, aes(x = date, y = all_checkouts, color = UsageClass)) +
+  geom_point() +
+  geom_line() +
   scale_y_continuous(breaks = seq(0, 1200, 100)) +
   labs(title = "Digital vs Physical Harry Potter Books Checkouts Overtime",
        x = "Month of the Year",
@@ -69,27 +70,11 @@ ggplot(data = material_types_checkout) +
   )
 ```
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart_1.R")}
-```
-
 ### Second Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+The second chart that I'm including is the "Harry Potter Books Checkout Summary Overtime Organized by Book Material Types". The x-axis is the months in 2022 and 2023 and the y-axis is the number of checkouts. There total two 8 materials for the book: audiobook, physical book, ebook, music, regprint, sound disc, sound rec, and video disc.
 
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+``````{r, echo = FALSE, code = readLines("chart_2.R")}
 ```
 
 ### Your Choice

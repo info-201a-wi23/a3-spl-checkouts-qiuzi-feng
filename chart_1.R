@@ -20,11 +20,11 @@ sum_checkout_monthly <- harry_potter %>%
   group_by(date, UsageClass) %>% 
   summarize(all_checkouts = sum(Checkouts))
 
-material_types_checkout <- sum_checkout_monthly %>%
+book_types_checkout <- sum_checkout_monthly %>%
   select("UsageClass", "all_checkouts", "date")
 
 # building the chart
-ggplot(material_types_checkout, aes(x = date, y = all_checkouts, color = UsageClass)) +
+ggplot(book_types_checkout, aes(x = date, y = all_checkouts, color = UsageClass)) +
   geom_point() +
   geom_line() +
   scale_y_continuous(breaks = seq(0, 1200, 100)) +
