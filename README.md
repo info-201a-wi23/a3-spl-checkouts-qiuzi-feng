@@ -30,3 +30,4 @@ For this assignment, you will create a report about library circulation trends, 
 - A first chart that shows trends over time for variables of your choice
 - A second chart that shows trends over time for a variables of your choice
 - A third chart that uses any kind of plot (bar chart, scatterplot, it's up to you)
+
